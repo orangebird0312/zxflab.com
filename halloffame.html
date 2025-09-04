@@ -22,6 +22,25 @@
   <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
+<script src="assets/js/vendor/bootstrap.min.js">
+  (function(){
+    const nav = document.querySelector('nav.site-nav');
+    const btn = nav.querySelector('.nav-toggle');
+    if(btn){
+      btn.addEventListener('click', ()=>{
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      });
+      window.addEventListener('resize', ()=>{
+        if(window.innerWidth > 992 && nav.classList.contains('open')){
+          nav.classList.remove('open');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+    }
+  })();
+</script>
+
 
 <style>
 /* 解除 body 固定宽度 + 容器 translate 影响 */
@@ -175,23 +194,5 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
   </nav>
   
   
-  <script src="assets/bootstrap/js/bootstrap.min.js">
-    (function(){
-      const nav = document.querySelector('nav.site-nav');
-      const btn = nav.querySelector('.nav-toggle');
-      if(btn){
-        btn.addEventListener('click', ()=>{
-          const open = nav.classList.toggle('open');
-          btn.setAttribute('aria-expanded', open);
-        });
-        window.addEventListener('resize', ()=>{
-          if(window.innerWidth > 992 && nav.classList.contains('open')){
-            nav.classList.remove('open');
-            btn.setAttribute('aria-expanded','false');
-          }
-        });
-      }
-    })();
-  </script>
 </body>
 </html>
