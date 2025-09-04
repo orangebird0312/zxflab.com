@@ -41,45 +41,6 @@ nav.site-nav .primary-nav__logo-text img{height:auto;max-height:56px;width:auto;
   nav.site-nav .primary-nav__logo-text img{max-height:42px;}
 }
 
-/* 菜单初始（桌面） */
-nav.site-nav > ul.main-menu{
-  list-style:none;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:40px;
-  margin:0;
-  padding:0;
-  font-weight:500;
-  height:58px;
-  font-family:Arial, sans-serif; /* 修改为 Arial 字体 */
-}
-nav.site-nav > ul.main-menu li a{
-  text-decoration:none;
-  display:block;
-  padding:4px 2px;
-  font-family:Arial, sans-serif; /* 保障链接也使用 Arial */
-}
-
-/* 桌面端：菜单整体水平居中（不受左侧 Logo 影响） */
-@media (min-width:993px){
-  nav.site-nav{
-    display:flex;
-    align-items:center;
-    position:fixed;
-  }
-  nav.site-nav > ul.main-menu{
-    position:absolute;
-    top:0;
-    left:50%;
-    transform:translateX(-50%);
-    height:60px;
-  }
-  nav.site-nav .primary-nav__inner{
-    flex:0 0 auto;
-  }
-}
-
 /* 折叠按钮（右上角） */
 .nav-toggle{
   display:none;
@@ -109,6 +70,43 @@ nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate
 nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
 nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
+/* 菜单初始（桌面） */
+nav.site-nav > ul.main-menu{
+  list-style:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  margin:0;
+  padding:0;
+  font-weight:500;
+  height:58px;
+  font-family:Arial, sans-serif; /* 修改为 Arial 字体 */
+}
+nav.site-nav > ul.main-menu li a{
+  text-decoration:none;
+  display:block;
+  padding:4px 2px;
+  font-family:Arial, sans-serif; /* 保障链接也使用 Arial */
+}
+/* 桌面端：菜单整体水平居中（不受左侧 Logo 影响） */
+@media (min-width:993px){
+  nav.site-nav{
+    display:flex;
+    align-items:center;
+    position:relative;
+  }
+  nav.site-nav > ul.main-menu{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    height:60px;
+  }
+  nav.site-nav .primary-nav__inner{
+    flex:0 0 auto;
+  }
+}
 /* 移动端 */
 @media (max-width:992px){
   /* 导航本体 */

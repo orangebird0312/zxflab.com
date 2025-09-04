@@ -70,14 +70,6 @@ nav.site-nav .primary-nav__logo-text img{height:auto;max-height:56px;width:auto;
 nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
 nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-/* 展开状态：为折叠菜单和导航条确保纯白背景 + 阴影 */
-@media (max-width:992px){
-  nav.site-nav.open{background:#fff;}
-  nav.site-nav.open > ul.main-menu{
-    background:#fff;              /* 确保是白色 */
-    box-shadow:0 4px 16px rgba(0,0,0,.08);
-  }
-
 /* 菜单初始（桌面） */
 nav.site-nav > ul.main-menu{
   list-style:none;
@@ -117,57 +109,36 @@ nav.site-nav > ul.main-menu li a{
   }
 }
 
-/* 移动端 */
 @media (max-width:992px){
-  /* 导航本体 */
   nav.site-nav{
-    padding:0 20px;
     position:fixed;
-    top:0;left:0;right:0;
-    height:60px;
+    padding-right:60px;
   }
   .nav-toggle{display:block;}
-  /* 折叠菜单全屏（导航下方）背景 */
   nav.site-nav > ul.main-menu{
-    position:fixed;
+    position:absolute;
     top:60px;
     left:0;
     right:0;
-    bottom:0;                 /* 占满到底，形成整块灰底 */
-    display:none;
+    background:#fff;
     flex-direction:column;
-    justify-content:flex-start;
-    align-items:center;
-    gap:5px;
-    margin:0;
-    overflow:visible;
-    z-index:9998;
+    gap:14px;
+    padding:14px 0 18px;
+    border-bottom:1px solid #eee;
+    display:none;
+    z-index:10001;
+    font-family:Arial, sans-serif; /* 确保移动端也为 Arial */
   }
   nav.site-nav.open > ul.main-menu{display:flex;}
-  nav.site-nav.open > ul.main-menu li a{
-    width:100%;              /* 两侧留出空间 */
-    background:#ffffff;                   /* 按钮背景 */
-    border:1px solid #e2e2e2;
-    border-radius:10px;
-    padding:14px 28px !important;
-    font-size:18px;
-    line-height:1.3;
-    color:#222;
-    text-align:center;
-    transition:.2s background,.2s color,.2s box-shadow,.2s transform;
-  }
-  /* 悬停 / 聚焦可访问态 */
-  nav.site-nav.open > ul.main-menu li a:hover,
-  nav.site-nav.open > ul.main-menu li a:focus{
-    background:#ffffff;
-    color:#000;
-    box-shadow:0 4px 10px rgba(0,0,0,.12);
-    text-decoration:none;
-  }
-  /* 极小屏再紧凑 */
-  @media (max-width:480px){
   nav.site-nav > ul.main-menu li a{
-    padding:8px 20px;
+    padding:8px 24px;
+    font-family:Arial, sans-serif;
+  }
+}
+
+@media (max-width:480px){
+  nav.site-nav > ul.main-menu li a{
+    padding:6px 18px;
     font-size:14px;
     font-family:Arial, sans-serif;
   }
