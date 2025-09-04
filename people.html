@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
+
 <style>
 /* ==== 响应式追加覆写（不改动原排版） ==== */
 
@@ -32,7 +33,14 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
 .row[style*="translate"]{transform:none !important;}
 
 /* 2. 统一成员图片在大屏保持 200px 高，小屏自适应减小 */
-.team-member img{width:100% !important;max-width:100% !important;object-fit:cover;}
+.team-member img{
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 200px !important;
+  object-fit: contain !important; /* 由 cover 改为 contain */
+  margin: 0 auto !important;
+  background: #f5f5f500; /* 保证背景一致 */
+}
 /* 针对内联设置了 max-width:52/56/62% 或 margin-left 的图片在中小屏恢复全宽 */
 @media (max-width:1200px){
   img[style*="max-width: 52"], img[style*="max-width: 56"], img[style*="max-width: 62"]{
@@ -96,12 +104,12 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
 }
 
 /* 10. 防止图片拉伸导致抖动 */
-.team-member img{background:#f5f5f5;}
+.team-member img{background:#ffffff00;}
 
 /* 11. 解除针对非 200px 图像的强制高度对合影的影响 */
 .team-member img[alt="Team Photo"],
   img[alt="Team Photo"]{
-    width:100% !important;
+    width:85% !important;
     max-width:800px;
     height:auto !important;
     object-fit:contain !important;
@@ -109,114 +117,308 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
     margin:0 auto;
     background:transparent;
   }
+
+
+/* ≥1400px 超大屏 */
+.team-member > .row.mb-5{margin-top:0px;}
+.team-member > .text-center.mb-4{margin-top:0px;}
+
+/* 1200px–1399px */
+@media (min-width:1440px){
+  .team-member > .row.mb-5{margin-top:-40px;}
+  .team-member > .text-center.mb-4{margin-top:-20px;}
+}
+
+/* 992px–1199px (lg) */
+@media (min-width:1024px){
+  .team-member > .row.mb-5{margin-top:-35px;}
+  .team-member > .text-center.mb-4{margin-top:-40px;}
+}
+
+/* 768px–991px (md) */
+@media (min-width:768px) and (max-width:991.98px){
+  .team-member > .row.mb-5{margin-top:50px;}
+  .team-member > .text-center.mb-4{margin-top:15px;}
+}
+
+/* 576px–767px (sm) */
+@media (max-width:767.98px){
+  .team-member > .row.mb-5{margin-top:-35px;}
+  .team-member > .text-center.mb-4{margin-top:-28px;}
+}
+
+/* <576px (xs) */
+@media (max-width:575.98px){
+  .team-member > .row.mb-5{margin-top:0px;}
+  .team-member > .text-center.mb-4{margin-top:0px;}
+}
+
+/* 提升优先级，覆盖你之前 @media(min-width:1025px) 内对 margin-top 的旧设置 */
+@media (min-width:1025px){
+  .team-member > .row.mb-5,
+  .team-member > .text-center.mb-4{
+    position:relative; /* 占位保持，不影响下方布局 */
+  }
+}
+ /* 调整“The PI”标题：大屏向上浮动，小屏恢复，正文随其移动 */
 .row.gy-4.align-items-start .col-md-8{
   position:relative;
-  padding-top:2.6rem;              /* 为上方悬浮的“The PI”留空间，可微调 */
+  display:flex;
+  flex-direction:column;
 }
+
 .row.gy-4.align-items-start .col-md-8 > p:first-child{
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  margin:0;
-  line-height:1.2;
-}
-.row.gy-4.align-items-start .col-md-8 > p:first-child span{
-  display:inline-block;
-}
-.row.gy-4.align-items-start .col-md-8 > p:nth-of-type(2){
-  margin-top:0;                    /* 确保“Xiaofan Zhou”行顶端紧贴容器顶部 */
-  padding-top:0;
+  position:relative;          /* 取消原来的 absolute，避免遮挡 */
+  transform:translateY(-22px);/* 默认大屏上移 */
+  margin:0 0 .55rem;
+  transition:transform .25s;
 }
 
-/* 若需要再靠近图片，把 padding-top 减小，比如 2.2rem */
-@media (max-width:576px){
-  .row.gy-4.align-items-start .col-md-8{
-    padding-top:2.2rem;
-  }
+.row.gy-4.align-items-start .col-md-8 > p:nth-child(2){
+  margin-top:0;
+}
+
+/* 1400px 以上再多上移一些 */
+@media (min-width:1400px){
   .row.gy-4.align-items-start .col-md-8 > p:first-child{
-    font-size:1.2rem;
+    transform:translateY(-28px);
   }
 }
 
-      /* 追加：放大 PI 区照片（保持响应式与不裁剪） */
-    .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
-      width:380px !important;
-      max-width:100% !important;
-      height:auto !important;
-      object-fit:contain !important;
-    }
-    @media (min-width:1200px){
-      .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
-        width:520px !important;
-      }
-    }
-    @media (max-width:991.98px){
-      .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
-        width:360px !important;
-      }
-    }
-    @media (max-width:576px){
-      .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
-        width:220px !important;
-      }
-    }
-    /* 小屏适当缩小宽度，防止撑出屏幕 */
-    @media (max-width:576px){
-      .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
-        width:200px !important;
-      }
-    }
-
-  .team-member img[src*="杨思琦"],
-  .team-member img[src*="曾欣诺"]{
-    width:100% !important;
-    max-width:100% !important;      /* 覆盖 52% / 56% 的内联 max-width */
-    height:200px !important;
-    object-fit:cover !important;    /* 与其它成员保持裁剪方式一致 */
-    margin:0 auto !important;
+/* 992–1399px：稍微减少上移幅度，保持平衡 */
+@media (min-width:992px) and (max-width:1399.98px){
+  .row.gy-4.align-items-start .col-md-8 > p:first-child{
+    transform:translateY(-18px);
   }
+}
 
-  @media (max-width:767.98px){
-    .team-member img[src*="杨思琦"],
-    .team-member img[src*="曾欣诺"]{
-      height:180px !important;      /* 与全局小屏规则一致 */
-    }
+/* <992px：与头像纵向堆叠，取消上移，防重叠 */
+@media (max-width:991.98px){
+  .row.gy-4.align-items-start .col-md-8 > p:first-child{
+    transform:none;
   }
-  @media (max-width:575.98px){
-    .team-member img[src*="杨思琦"],
-    .team-member img[src*="曾欣诺"]{
-      height:160px !important;      /* 与超小屏规则一致 */
-    }
-  }
+}
 
+/* 极小屏：缩小标题字号 */
+@media (max-width:576px){
+  .row.gy-4.align-items-start .col-md-8 > p:first-child span{
+    font-size:1.25rem !important;
+  }
+}
+
+/* 追加：放大 PI 区照片（保持响应式与不裁剪） */
+.row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
+  width:380px !important;
+  max-width:100% !important;
+  height:auto !important;
+  object-fit:contain !important;
+}
+@media (min-width:1200px){
+  .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
+    width:520px !important;
+  }
+}
+@media (max-width:991.98px){
+  .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
+    width:360px !important;
+  }
+}
+@media (max-width:576px){
+  .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
+    width:220px !important;
+  }
+}
+/* 小屏适当缩小宽度，防止撑出屏幕 */
+@media (max-width:576px){
+  .row.gy-4.align-items-start > .col-md-4.text-center > img[alt="Xiaofan Zhou"]{
+    width:200px !important;
+  }
+}
+
+/* 图片居中与尺寸 */
+.team-member > img:not([alt="Team Photo"]):not([alt="Xiaofan Zhou"]),
+.team-member > .rounded.img-fluid:not([alt="Team Photo"]):not([alt="Xiaofan Zhou"]) {
+  display:block;
+  margin:0 auto !important;
+  width:100% !important;
+  max-width:240px;
+  height:200px !important;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+/* 文本块居中 */
+.team-member > .py-4{
+  text-align:center;
+  padding-top:.55rem;
+}
+.team-member > .py-4 .name{
+  display:block;
+  margin:0 0 .4rem;
+  text-align:center;
+  font-weight:600;
+}
+
+/* 小屏缩小头像 */
+@media (max-width:575.98px){
+  .team-member > img:not([alt="Team Photo"]):not([alt="Xiaofan Zhou"]),
+  .team-member > .rounded.img-fluid:not([alt="Team Photo"]):not([alt="Xiaofan Zhou"]){
+    max-width:200px;
+    height:180px !important;
+  }
+}
+/* 成员姓名字体与颜色统一：Times New Roman + 黑色 */
+.team-member .name{
+  font-family:"Times New Roman","TimesNewRoman",Times,serif !important;
+  color:#000 !important;
+}
+
+/* 7. 导航响应式（Logo 缩放 + 折叠菜单） */
+nav.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  background:#fff;height:60px;display:flex;align-items:center;
+  gap:32px;padding:0 40px;border-bottom:1px solid #eee;
+}
+nav.site-nav .primary-nav__logo-text img{height:auto;max-height:56px;width:auto;}
+@media (max-width:992px){
+  nav.site-nav{padding:0 20px;gap:18px;}
+  nav.site-nav .primary-nav__logo-text img{max-height:48px;}
+}
+@media (max-width:576px){
+  nav.site-nav .primary-nav__logo-text img{max-height:42px;}
+}
+
+/* 菜单初始（桌面） */
+nav.site-nav > ul.main-menu{
+  list-style:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  margin:0;
+  padding:0;
+  font-weight:500;
+  height:58px;
+  font-family:Arial, sans-serif; /* 修改为 Arial 字体 */
+}
+nav.site-nav > ul.main-menu li a{
+  text-decoration:none;
+  display:block;
+  padding:4px 2px;
+  font-family:Arial, sans-serif; /* 保障链接也使用 Arial */
+}
+
+/* 桌面端：菜单整体水平居中（不受左侧 Logo 影响） */
+@media (min-width:993px){
+  nav.site-nav{
+    display:flex;
+    align-items:center;
+    position:fixed;
+  }
+  nav.site-nav > ul.main-menu{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    height:60px;
+  }
+  nav.site-nav .primary-nav__inner{
+    flex:0 0 auto;
+  }
+}
+
+/* 折叠按钮（右上角） */
+.nav-toggle{
+  display:none;
+  position:absolute;
+  top:10px;
+  right:16px;
+  z-index:10002;
+  border:0;
+  background:#fff;
+  height:40px;
+  width:44px;
+  padding:0;
+  cursor:pointer;
+}
+.nav-toggle span{
+  position:absolute;
+  left:10px;
+  right:10px;
+  height:2px;
+  background:#222;
+  transition:.3s;
+}
+.nav-toggle span:nth-child(1){top:12px;}
+.nav-toggle span:nth-child(2){top:19px;}
+.nav-toggle span:nth-child(3){top:26px;}
+nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
+nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+@media (max-width:992px){
+  nav.site-nav{
+    position:fixed;
+    padding-right:60px;
+  }
+  .nav-toggle{display:block;}
+  nav.site-nav > ul.main-menu{
+    position:absolute;
+    top:60px;
+    left:0;
+    right:0;
+    background:#fff;
+    flex-direction:column;
+    gap:14px;
+    padding:14px 0 18px;
+    border-bottom:1px solid #eee;
+    display:none;
+    z-index:10001;
+    font-family:Arial, sans-serif; /* 确保移动端也为 Arial */
+  }
+  nav.site-nav.open > ul.main-menu{display:flex;}
+  nav.site-nav > ul.main-menu li a{
+    padding:8px 24px;
+    font-family:Arial, sans-serif;
+  }
+}
+
+@media (max-width:480px){
+  nav.site-nav > ul.main-menu li a{
+    padding:6px 18px;
+    font-size:14px;
+    font-family:Arial, sans-serif;
+  }
+}
 </style>
 
 <body style="width: 1191.2px;">
   <symbol id="chevron" viewbox="0 0 15 8">
     <path d="M13.728 0.364014L7.36407 6.72798L1.00012 0.364014"></path>
   </symbol>
-  <nav style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#ffffff;height:60px;display:flex;align-items:center;gap:32px;padding:0 40px;border-bottom:1px solid #eee;">
-    <div class="primary-nav__inner">
-      <div class="primary-nav__content">
-        <div class="primary-nav__top">
-          <a class="primary-nav__logo-text" href="https://www.scau.edu.cn/" style="position: relative;z-index: 10001;display: inline-block;">
-            <img src="assets/image/icons/scau_1.png" alt="SCAU Logo" style="height: 45px;font-size: 20px;background: #ffffff;">
-            <img src="assets/image/icons/zhou_logo_2.png" alt="labLogo" style="height: 56px;font-size: 20px;">
-          </a>
-        </div>
+<nav class="site-nav">
+  <div class="primary-nav__inner">
+    <div class="primary-nav__content">
+      <div class="primary-nav__top">
+        <a class="primary-nav__logo-text" href="https://www.scau.edu.cn/" style="position: relative;z-index:10001;display:inline-block;">
+          <img src="assets/image/icons/scau_1.png" alt="SCAU Logo" style="background:#ffffff;">
+          <img src="assets/image/icons/zhou_logo_2.png" alt="labLogo">
+        </a>
       </div>
     </div>
-    <ul style="position: fixed;top: 0;left: 0;right: 0;z-index: 9999;display: flex;justify-content: center;align-items: center;gap: 40px;list-style: none;font-weight: 500;height: 58px;">
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/index.html" style="text-decoration:none;">Home</a></li>
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/news.html" style="text-decoration:none;">News</a></li>
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/people.html" style="text-decoration:none;">Team</a></li>
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/research.html" style="text-decoration:none;">Research</a></li>
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/publications.html" style="text-decoration:none;">Publications</a></li>
-      <li><a href="https://orangebird0312.github.io/zxflab.github.io/halloffame.html" style="text-decoration:none;">Alumni</a></li>
-    </ul>
-  </nav>
-  <!-- spacer to prevent overlap -->
+  </div>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <ul class="main-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="people.html">Team</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="publications.html">Publications</a></li>
+    <li><a href="halloffame.html">Alumni</a></li>
+  </ul>
+</nav>
+
+<!-- spacer to prevent overlap -->
   <div style="height:60px;"></div>
 
   <div class="container py-4 py-xl-5" style="overflow-y: visible;transform: translate(5px) translateX(141px) ;">
@@ -238,7 +440,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
             <img class="rounded img-fluid fit-cover" src="assets/image/team/周筱帆.jpg" alt="Xiaofan Zhou" style="width:280px;height:280px;object-fit:cover;display:block;margin:0 auto;">
           </div>
           <div class="col-md-8">
-            <p class="text-center mb-2"">
+            <p class="text-center mb-2">
               <strong><span style="font-family:'Comic Sans MS';color:#1c1c1c;font-size:1.5rem;">The PI</span></strong>
             </p>
             <p style="line-height:38px;font-size:19px;" class="mb-0">
@@ -276,7 +478,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/王小晴.jpg">
           <div class="py-4">
-            <strong class="name">王小晴</strong>
+            <strong class="name">Xiaoqing Wang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -285,7 +487,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;max-width: 62%;" src="assets/image/team/张霄汉.jpg">
           <div class="py-4">
-            <strong class="name">张霄汉</strong>
+            <strong class="name">Xiaohan Zhang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -311,7 +513,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/刘清梅.jpg">
           <div class="py-4">
-            <strong class="name">刘清梅</strong>
+            <strong class="name">Qingmei Liu</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -320,7 +522,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/陈文娟.jpg">
           <div class="py-4">
-            <strong class="name">陈文娟</strong>
+            <strong class="name">Wenjuan Chen</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -329,7 +531,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/李泳霖.jpg" style="height: 200px;">
           <div class="py-4">
-            <strong class="name">李泳霖</strong>
+            <strong class="name">Yonglin Li</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -338,7 +540,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/陈慧琳.jpg">
           <div class="py-4">
-            <strong class="name">陈慧琳</strong>
+            <strong class="name">Huilin Chen</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -350,7 +552,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/邹少杰.jpg">
           <div class="py-4">
-            <strong class="name">邹少杰</strong>
+            <strong class="name">Shaojie Zou</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -359,7 +561,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;max-width: 100%;" src="assets/image/team/王兆雪.jpg">
           <div class="py-4">
-            <strong class="name">王兆雪</strong>
+            <strong class="name">Zhaoxue Wang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -368,7 +570,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/蔡瑜静.jpg" style="margin-bottom: -1px;height: 200px;">
           <div class="py-4">
-            <strong class="name">蔡瑜静</strong>
+            <strong class="name">Yujing Cai</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -377,7 +579,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/黄晨轩.jpg">
           <div class="py-4">
-            <strong class="name">黄晨轩</strong>
+            <strong class="name">Chenxuan Huang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -389,7 +591,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="max-width: 52.3%;" src="assets/image/team/杨思琦.jpg">
           <div class="py-4">
-            <strong class="name">杨思琦</strong>
+            <strong class="name">Siqi Yang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -398,16 +600,16 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/陶招金.jpg">
           <div class="py-4">
-            <strong class="name">陶招金</strong>
+            <strong class="name">Zhaojin Tao</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
       </div>
       <div class="col">
         <div class="team-member">
-          <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/曾欣诺.jpg">
+          <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/曾欣诺.png">
           <div class="py-4">
-            <strong class="name">曾欣诺</strong>
+            <strong class="name">Xinnuo Zeng</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -416,7 +618,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;max-width: 62%;margin-left: 41px;" src="assets/image/team/张若萌.jpg">
           <div class="py-4">
-            <strong class="name">张若萌</strong>
+            <strong class="name">Ruomeng Zhang</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -428,7 +630,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/涂慧敏.jpg">
           <div class="py-4">
-            <strong class="name">涂慧敏</strong>
+            <strong class="name">Hui Min Tu</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -437,7 +639,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" style="height: 200px;" src="assets/image/team/詹晓婷.jpg">
           <div class="py-4">
-            <strong class="name">詹晓婷</strong>
+            <strong class="name">Xiaoting Zhan</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -446,7 +648,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
         <div class="team-member">
           <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/潘思睿.jpg" style="max-height: 200px;min-height: 97px;max-width: 100%;width: 240.5px;margin-right: 0px;margin-left: 0px;height: 200px;">
           <div class="py-4">
-            <strong class="name">潘思睿</strong>
+            <strong class="name">Suirui Pan</strong>
             <p>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
           </div>
         </div>
@@ -456,7 +658,7 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
           <img class="rounded img-fluid d-block w-100 fit-cover" src="assets/image/team/darwin.png">
           <div class="py-4">
               <strong class="name">
-                <span style="color:rgb(255, 0, 0);margin: 15px;">You are here</span>
+                <span style="color:rgb(255, 0, 0);margin: 20px;">You are here</span>
               </strong>
           </div>
       </div>
@@ -474,7 +676,24 @@ body{width:auto !important;max-width:100%;overflow-x:hidden;}
     </div>
   </section>
 
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js">
+    (function(){
+      const nav = document.querySelector('nav.site-nav');
+      const btn = nav.querySelector('.nav-toggle');
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const open = nav.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open);
+        });
+        window.addEventListener('resize', ()=>{
+          if(window.innerWidth > 992 && nav.classList.contains('open')){
+            nav.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+          }
+        });
+      }
+    })();
+  </script>
 
 
 </body>
