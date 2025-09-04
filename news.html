@@ -90,7 +90,7 @@ nav.site-nav > ul.main-menu li a{
   right:16px;
   z-index:10002;
   border:0;
-  background:#fff;
+  background:#ffffff;
   height:40px;
   width:44px;
   padding:0;
@@ -110,6 +110,13 @@ nav.site-nav > ul.main-menu li a{
 nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
 nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+/* 展开状态：为折叠菜单和导航条确保纯白背景 + 阴影 */
+@media (max-width:992px){
+  nav.site-nav.open{background:#fff;}
+  nav.site-nav.open > ul.main-menu{
+    background:#fff;              /* 确保是白色 */
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+  }
 
 @media (max-width:992px){
   nav.site-nav{
@@ -146,25 +153,6 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
   }
 }
 </style>
-<script src="assets/js/vendor/bootstrap.min.js">
-  (function(){
-    const nav = document.querySelector('nav.site-nav');
-    const btn = nav.querySelector('.nav-toggle');
-    if(btn){
-      btn.addEventListener('click', ()=>{
-        const open = nav.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-      window.addEventListener('resize', ()=>{
-        if(window.innerWidth > 992 && nav.classList.contains('open')){
-          nav.classList.remove('open');
-          btn.setAttribute('aria-expanded','false');
-        }
-      });
-    }
-  })();
-</script>
-
 
 <body style="height:60px;">
   <symbol id="chevron" viewbox="0 0 15 8">
@@ -193,26 +181,26 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
       <li><a href="halloffame.html">Alumni</a></li>
     </ul>
   </nav>
-  
-    <script src="assets/js/vendor/bootstrap.min.js">
+
+  <script src="assets/js/vendor/bootstrap.min.js"></script>
+  <script>
     (function(){
-        const nav = document.querySelector('nav.site-nav');
-        const btn = nav.querySelector('.nav-toggle');
-        if(btn){
-        btn.addEventListener('click', ()=>{
-            const open = nav.classList.toggle('open');
-            btn.setAttribute('aria-expanded', open);
+      const nav = document.querySelector('nav.site-nav');
+      if(!nav) return;
+      const btn = nav.querySelector('.nav-toggle');
+      if(btn){
+        btn.addEventListener('click', function(){
+          const open = nav.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(open));
         });
-        window.addEventListener('resize', ()=>{
-            if(window.innerWidth > 992 && nav.classList.contains('open')){
+        window.addEventListener('resize', function(){
+          if(window.innerWidth > 992 && nav.classList.contains('open')){
             nav.classList.remove('open');
             btn.setAttribute('aria-expanded','false');
-            }
+          }
         });
-        }
+      }
     })();
-    </script>
-
-
+  </script>
 </body>
 </html>
