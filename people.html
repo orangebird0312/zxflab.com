@@ -355,25 +355,6 @@ nav.site-nav > ul.main-menu li a{
 }
 </style>
 
-<script src="assets/js/vendor/bootstrap.min.js">
-  (function(){
-    const nav = document.querySelector('nav.site-nav');
-    const btn = nav.querySelector('.nav-toggle');
-    if(btn){
-      btn.addEventListener('click', ()=>{
-        const open = nav.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-      window.addEventListener('resize', ()=>{
-        if(window.innerWidth > 992 && nav.classList.contains('open')){
-          nav.classList.remove('open');
-          btn.setAttribute('aria-expanded','false');
-        }
-      });
-    }
-  })();
-</script>
-
 
 <body style="width: 1191.2px;">
   <symbol id="chevron" viewbox="0 0 15 8">
@@ -651,8 +632,24 @@ nav.site-nav > ul.main-menu li a{
     </div>
   </div>
 
-
-
+  <script src="assets/js/vendor/bootstrap.min.js">
+    (function(){
+      const nav = document.querySelector('nav.site-nav');
+      const btn = nav.querySelector('.nav-toggle');
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const open = nav.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open);
+        });
+        window.addEventListener('resize', ()=>{
+          if(window.innerWidth > 992 && nav.classList.contains('open')){
+            nav.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+          }
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>

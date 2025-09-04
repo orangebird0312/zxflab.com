@@ -42,6 +42,34 @@ nav.site-nav .primary-nav__logo-text img{height:auto;max-height:56px;width:auto;
 @media (max-width:576px){
   nav.site-nav .primary-nav__logo-text img{max-height:42px;}
 }
+/* 折叠按钮（右上角） */
+.nav-toggle{
+  display:none;
+  position:absolute;
+  top:10px;
+  right:16px;
+  z-index:10002;
+  border:0;
+  background:#fff;
+  height:40px;
+  width:44px;
+  padding:0;
+  cursor:pointer;
+}
+.nav-toggle span{
+  position:absolute;
+  left:10px;
+  right:10px;
+  height:2px;
+  background:#222;
+  transition:.3s;
+}
+.nav-toggle span:nth-child(1){top:12px;}
+.nav-toggle span:nth-child(2){top:19px;}
+.nav-toggle span:nth-child(3){top:26px;}
+nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
+nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
 
 /* 菜单初始（桌面） */
 nav.site-nav > ul.main-menu{
@@ -82,35 +110,6 @@ nav.site-nav > ul.main-menu li a{
   }
 }
 
-/* 折叠按钮（右上角） */
-.nav-toggle{
-  display:none;
-  position:absolute;
-  top:10px;
-  right:16px;
-  z-index:10002;
-  border:0;
-  background:#fff;
-  height:40px;
-  width:44px;
-  padding:0;
-  cursor:pointer;
-}
-.nav-toggle span{
-  position:absolute;
-  left:10px;
-  right:10px;
-  height:2px;
-  background:#222;
-  transition:.3s;
-}
-.nav-toggle span:nth-child(1){top:12px;}
-.nav-toggle span:nth-child(2){top:19px;}
-.nav-toggle span:nth-child(3){top:26px;}
-nav.site-nav.open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-nav.site-nav.open .nav-toggle span:nth-child(2){opacity:0;}
-nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
 @media (max-width:992px){
   nav.site-nav{
     position:fixed;
@@ -146,25 +145,6 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
   }
 }
 </style>
-<script src="assets/js/vendor/bootstrap.min.js">
-  (function(){
-    const nav = document.querySelector('nav.site-nav');
-    const btn = nav.querySelector('.nav-toggle');
-    if(btn){
-      btn.addEventListener('click', ()=>{
-        const open = nav.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open);
-      });
-      window.addEventListener('resize', ()=>{
-        if(window.innerWidth > 992 && nav.classList.contains('open')){
-          nav.classList.remove('open');
-          btn.setAttribute('aria-expanded','false');
-        }
-      });
-    }
-  })();
-</script>
-
 
 <body style="height:60px;">
   <symbol id="chevron" viewbox="0 0 15 8">
@@ -193,6 +173,24 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
       <li><a href="halloffame.html">Alumni</a></li>
     </ul>
   </nav>
+    <script src="assets/js/vendor/bootstrap.min.js">
+    (function(){
+        const nav = document.querySelector('nav.site-nav');
+        const btn = nav.querySelector('.nav-toggle');
+        if(btn){
+        btn.addEventListener('click', ()=>{
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+        });
+        window.addEventListener('resize', ()=>{
+            if(window.innerWidth > 992 && nav.classList.contains('open')){
+            nav.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+            }
+        });
+        }
+    })();
+    </script>
 
         
 </body>

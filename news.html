@@ -193,6 +193,25 @@ nav.site-nav.open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotat
       <li><a href="halloffame.html">Alumni</a></li>
     </ul>
   </nav>
+  
+    <script src="assets/js/vendor/bootstrap.min.js">
+    (function(){
+        const nav = document.querySelector('nav.site-nav');
+        const btn = nav.querySelector('.nav-toggle');
+        if(btn){
+        btn.addEventListener('click', ()=>{
+            const open = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', open);
+        });
+        window.addEventListener('resize', ()=>{
+            if(window.innerWidth > 992 && nav.classList.contains('open')){
+            nav.classList.remove('open');
+            btn.setAttribute('aria-expanded','false');
+            }
+        });
+        }
+    })();
+    </script>
 
 
 </body>
