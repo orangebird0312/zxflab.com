@@ -1,0 +1,110 @@
+/* Extracted styles related to jPlayer markup from test.html selection */
+
+/* Layout container that may clip children (context) */
+.section-wrap {
+  position: relative;
+  padding: 1px 0;
+  overflow: hidden; /* original template rule that can clip children */
+}
+
+/* jPlayer containers present in the markup */
+.jp-video,
+.jp-video-single,
+.jp-type-playlist,
+.jp-jplayer,
+.jp-gui,
+.jp-interface,
+.jp-playlist,
+.jp-player-list,
+.jp-player-list-item {
+}
+
+/* Section aside rules impacting jPlayer media sizing */
+@media (min-width: 992px) {
+  .section-wrap .section-wrap-aside .jp-video-single {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .section-wrap .section-wrap-aside .jp-video .jp-jplayer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .section-wrap .section-wrap-aside .jp-video .jp-jplayer img,
+  .section-wrap .section-wrap-aside .jp-video .jp-jplayer video {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    object-fit: contain; /* previously cover, could crop */
+    object-position: center;
+    width: auto; /* previously 100% !important */
+    height: auto; /* previously 100% !important */
+  }
+}
+
+/* Legacy IE adjustments (from original stylesheet) */
+.ie-10 .section-wrap .section-wrap-aside .jp-video .jp-jplayer img,
+.ie-10 .section-wrap .section-wrap-aside img,
+.ie-11 .section-wrap .section-wrap-aside .jp-video .jp-jplayer img,
+.ie-11 .section-wrap .section-wrap-aside img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+
+.ie-10 .section-wrap .section-wrap-aside .jp-video .jp-jplayer video,
+.ie-11 .section-wrap .section-wrap-aside .jp-video .jp-jplayer video {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110% !important;
+  height: 100% !important;
+}
+
+/* Player init rule that zeroes out the media container (can hide video) */
+.jp-player-init .jp-jplayer {
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Fullscreen related sizing for jp-video */
+.jp-video-full {
+  width: 480px;
+  height: 270px;
+  position: static !important;
+}
+
+.jp-video.jp-state-full-screen .jp-jplayer {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Practical overrides to make container adjustable and avoid cropping */
+.jp-video .jp-jplayer,
+.jp-video-single .jp-jplayer,
+.jp-type-playlist .jp-jplayer {
+  width: 100% !important;
+  height: auto !important;
+  position: relative;
+  overflow: visible;
+}
+
+.jp-jplayer video,
+.jp-jplayer img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+}
